@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simulação acadêmica do Projeto SIREN em formato de aplicativo de hidratação camuflado.">
+  <title>Projeto SIREN — Simulador do App Camuflado</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <span class="tag">SIMULAÇÃO ACADÊMICA</span>
+      <h1>Projeto SIREN — App camuflado de hidratação</h1>
+      <p>Demonstração conceitual: o app aparenta registrar água, enquanto um código específico aciona um alerta silencioso.</p>
+    </div>
+    <button id="resetAll" class="ghost-button" type="button">Reiniciar simulação</button>
+  </header>
+
+  <main class="simulation-grid">
+    <section class="device-column">
+      <div class="section-label">1. Celular da usuária</div>
+      <div class="phone user-phone">
+        <div class="phone-speaker"></div>
+        <div class="phone-screen hydration-screen">
+          <div class="app-header">
+            <div><span class="small-label">Hoje</span><h2>Minha Água</h2></div>
+            <div class="water-icon">💧</div>
+          </div>
+
+          <div class="progress-card">
+            <div class="water-circle">
+              <div class="water-fill" id="waterFill"></div>
+              <div class="water-content"><strong id="waterTotal">0 ml</strong><span>de 2.000 ml</span></div>
+            </div>
+            <p id="progressText">Comece seu dia se hidratando.</p>
+          </div>
+
+          <div class="quick-actions">
+            <button id="add250" class="water-button primary-water" type="button"><span>+</span> Adicionar 250 ml</button>
+          </div>
+
+          <div class="custom-card">
+            <label for="customAmount">Outra quantidade</label>
+            <div class="custom-row">
+              <input id="customAmount" type="number" min="1" max="2000" placeholder="Ex.: 180" inputmode="numeric">
+              <span>ml</span>
+              <button id="addCustom" class="water-button secondary-water" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="history">
+            <div class="history-title"><span>Histórico de hoje</span><span id="drinkCount">0 registros</span></div>
+            <ul id="drinkHistory"><li class="empty-history">Nenhum consumo registrado.</li></ul>
+          </div>
+
+          <p class="camouflage-note">Meta diária sugerida apenas para fins da simulação.</p>
+        </div>
+      </div>
+
+      <div class="helper-card">
+        <strong>Como demonstrar</strong>
+        <p>Clique em <b>Adicionar 250 ml</b> para uso normal. Digite <b>180</b> e clique em <b>Adicionar</b> para simular o acionamento oculto.</p>
+      </div>
+    </section>
+
+    <section class="device-column">
+      <div class="section-label">2. Central de monitoramento</div>
+      <div class="monitor">
+        <div class="monitor-top">
+          <div class="monitor-logo"><span class="monitor-dot"></span> Central SIREN</div>
+          <div class="monitor-clock" id="monitorClock">--:--:--</div>
+        </div>
+
+        <div class="monitor-screen">
+          <div class="central-idle" id="centralIdle">
+            <div class="radar">
+              <div class="radar-circle circle-1"></div><div class="radar-circle circle-2"></div><div class="radar-circle circle-3"></div><div class="radar-center"></div>
+            </div>
+            <h3>Nenhum alerta ativo</h3>
+            <p>A central está aguardando acionamentos da simulação.</p>
+          </div>
+
+          <div class="central-alert hidden" id="centralAlert">
+            <div class="alert-header"><span class="alert-badge">ALERTA RECEBIDO</span><span id="alertTime">--:--</span></div>
+            <div class="alert-user"><div class="avatar">U</div><div><span class="small-label">Usuária simulada</span><strong>Dispositivo SIREN #001</strong></div></div>
+
+            <div class="alert-grid">
+              <article><span>Tipo</span><strong>Acionamento silencioso</strong></article>
+              <article><span>Status</span><strong class="status-danger">Prioridade alta</strong></article>
+              <article><span>Localização simulada</span><strong>Saquarema — RJ</strong></article>
+              <article><span>Origem</span><strong>App camuflado</strong></article>
+            </div>
+
+            <div class="fake-map"><div class="map-grid"></div><div class="map-pin">●</div><span>Localização meramente ilustrativa</span></div>
+
+            <div class="central-log">
+              <div><span class="log-dot"></span> Código de emergência reconhecido.</div>
+              <div><span class="log-dot"></span> Alerta encaminhado à central.</div>
+              <div><span class="log-dot"></span> Contato de confiança notificado.</div>
+            </div>
+
+            <button id="ackAlert" class="ack-button" type="button">Marcar como visualizado</button>
+          </div>
+        </div>
+        <div class="monitor-base"></div><div class="monitor-foot"></div>
+      </div>
+
+      <div class="helper-card"><strong>Central simulada</strong><p>Não existe envio real para autoridades. O painel apenas demonstra como um alerta poderia aparecer em uma central autorizada.</p></div>
+    </section>
+
+    <section class="device-column">
+      <div class="section-label">3. Contato de confiança</div>
+      <div class="phone contact-phone">
+        <div class="phone-speaker"></div>
+        <div class="phone-screen contact-screen">
+          <div class="fake-statusbar"><span id="contactClock">09:41</span><span>●●● Wi-Fi ▰</span></div>
+          <div class="contact-home">
+            <div class="home-title"><strong>Notificações</strong><span>Contato de confiança</span></div>
+
+            <div class="notification placeholder-notification" id="contactIdle">
+              <div class="notification-icon calm">S</div><div><strong>Projeto SIREN</strong><p>Nenhum alerta recebido.</p></div>
+            </div>
+
+            <div class="notification siren-notification hidden" id="contactAlert">
+              <div class="notification-icon danger">!</div>
+              <div class="notification-copy">
+                <div class="notification-topline"><strong>SIREN — Alerta silencioso</strong><span id="contactAlertTime">agora</span></div>
+                <p>Um contato cadastrado acionou o pedido de ajuda.</p>
+                <div class="notification-meta"><span>📍 Saquarema — RJ</span><span>Prioridade alta</span></div>
+                <button id="openContactAlert" type="button">Ver detalhes</button>
+              </div>
+            </div>
+
+            <div class="contact-details hidden" id="contactDetails">
+              <div class="details-header"><button id="closeDetails" type="button">←</button><strong>Detalhes do alerta</strong></div>
+              <div class="details-body">
+                <div class="large-alert-icon">!</div>
+                <h3>Pedido de ajuda recebido</h3>
+                <p>Este é um alerta de demonstração emitido pelo dispositivo SIREN #001.</p>
+                <div class="details-box"><span>Horário</span><strong id="detailsTime">--:--</strong></div>
+                <div class="details-box"><span>Localização simulada</span><strong>Saquarema — RJ</strong></div>
+                <div class="details-box"><span>Ação sugerida na simulação</span><strong>Confirmar recebimento e seguir o protocolo definido.</strong></div>
+                <div class="warning-box">Esta página é somente demonstrativa e não aciona serviços reais de emergência.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="helper-card"><strong>Terceiro contato</strong><p>Representa um contato previamente autorizado pela usuária para receber o aviso.</p></div>
+    </section>
+  </main>
+
+  <footer>Projeto SIREN · Protótipo didático em HTML, CSS e JavaScript · Nenhum alerta real é enviado</footer>
+
+  <div class="toast" id="toast"><strong>Registro adicionado</strong><span id="toastText">250 ml adicionados.</span></div>
+  <script src="script.js"></script>
+</body>
+</html>
